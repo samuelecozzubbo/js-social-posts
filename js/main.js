@@ -60,7 +60,11 @@ const posts = [
 
 //Richiamo il container
 const postContainer = document.getElementById("container");
-posts.forEach(createPost)
+posts.forEach(createPost);
+
+// Array per tracciare gli ID dei post con like
+let likedPostId = []
+
 
 
 //FUNZIONI*****************
@@ -110,14 +114,16 @@ function createPost(post){
             // Incremento o decremento il contatore dei likes
             if (button.classList.contains('like-button--liked')) {
                 posts[index].likes++;
+                likedPostId.push(index + 1);
             } else {
                 posts[index].likes--;
             }
             //Aggiorno il valore
-            likeCounter = document.querySelectorAll("js-likes-counter");
+            const likeCounter = document.querySelectorAll(".js-likes-counter");
             likeCounter.forEach((counter,index) => {
-            counter.innerHTML = post[index].likes;
+                counter.innerHTML = posts[index].likes;
             })
+            console.log(likedPostId);
         });
     });
 

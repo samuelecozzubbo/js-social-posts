@@ -86,13 +86,13 @@ function createPost(post){
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <a class="like-button  js-like-button" href="#" data-postid="${post.id}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${post.likes}</b> persone
+                        Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.likes}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -100,12 +100,24 @@ function createPost(post){
     // Milestone 3 - Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
     //GESTIONE CLICK SUI MI PIACE
     //RIchiamo il pulsante "Mi Piace"
-    const likeButtons = document.querySelectorAll('.js-like-button');
+    const likeButtons = document.querySelectorAll('.like-button');
     likeButtons.forEach((button, index) => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(event) {
             event.preventDefault();
             console.log(`Hai cliccato sul pulsante Mi Piace del post ${index + 1}`);
-            // Aggiungi qui la logica per gestire il click del pulsante Mi Piace
+            //gestisco la classe liked
+            button.classList.toggle("like-button--liked");
+            // Incremento o decremento il contatore dei likes
+            if (button.classList.contains('like-button--liked')) {
+                posts[index].likes++;
+            } else {
+                posts[index].likes--;
+            }
+            //Aggiorno il valore
+            likeCounter = document.querySelectorAll("js-likes-counter");
+            likeCounter.forEach((counter,index) => {
+            counter.innerHTML = post[index].likes;
+            })
         });
     });
 

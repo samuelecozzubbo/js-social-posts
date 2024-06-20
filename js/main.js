@@ -60,7 +60,12 @@ const posts = [
 
 //Richiamo il container
 const postContainer = document.getElementById("container");
-posts.forEach(post => {
+posts.forEach(createPost)
+
+
+//FUNZIONI*****************
+
+function createPost(post){
     postContainer.innerHTML += `
         <div class="post">
             <div class="post__header">
@@ -92,10 +97,22 @@ posts.forEach(post => {
                 </div> 
             </div>            
         </div>`;
-});
+    // Milestone 3 - Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+    //GESTIONE CLICK SUI MI PIACE
+    //RIchiamo il pulsante "Mi Piace"
+    const likeButtons = document.querySelectorAll('.js-like-button');
+    likeButtons.forEach((button, index) => {
+        button.addEventListener('click', function() {
+            event.preventDefault();
+            console.log(`Hai cliccato sul pulsante Mi Piace del post ${index + 1}`);
+            // Aggiungi qui la logica per gestire il click del pulsante Mi Piace
+        });
+    });
+
+};
 
 
-// Milestone 3 - Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+
 // **BONUS
 // Formattare le date in formato italiano (gg/mm/aaaa)
 // Gestire l’assenza dell’immagine profilo con un elemento di fallback che contiene le iniziali dell’utente (es. Luca Formicola > LF).
